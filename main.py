@@ -42,3 +42,36 @@ plt.grid()
 
 plt.show()
 
+
+# Gradient descent
+
+new_x = 3
+previous_x = 0
+step_multiplier = 0.1
+precision = 0.0001
+
+x_list = [new_x]
+slope_list = [df(new_x)]
+
+
+for n in range(500):
+    previous_x = new_x
+    gradient = df(previous_x)
+    new_x = previous_x - step_multiplier * gradient
+
+    x_list.append(new_x)
+    slope_list.append(df(new_x))
+
+    if abs(new_x - previous_x) < precision:
+        print(f'Loop run {n} times.')
+        break
+
+
+print(f'The local minimum is at: {new_x}')
+print(f'Slope df(x) at this value is: {df(new_x)}')
+print(f'The cost value at this point is: {f(new_x)}')
+
+# Superimpose the gradient descent calc
+plt.subplot(1, 3, 1)
+
+plt.show()
