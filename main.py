@@ -55,25 +55,25 @@ print(f'The cost value at this point is: {f(new_x)}')
 # Plot function and derivative side-by-side
 
 # Chart 1, cost function
-plt.subplot(2, 1, 1)
-
-plt.title('Cost function')
-plt.plot(x_1, f(x_1))
-plt.xlabel('x')
-plt.ylabel('f(x)')
-
-x_values = np.array(x_list)
-plt.scatter(x_list, f(x_values), color="red")
-
-# Chart 2, derivative
-plt.subplot(2, 1, 2)
-
-plt.title('Slope of the cost function')
-plt.plot(x_1, df(x_1))
-plt.xlabel('x')
-plt.ylabel('df(x)')
-plt.grid()
-plt.scatter(x_list, df(x_values), color="red")
+# plt.subplot(2, 1, 1)
+#
+# plt.title('Cost function')
+# plt.plot(x_1, f(x_1))
+# plt.xlabel('x')
+# plt.ylabel('f(x)')
+#
+# x_values = np.array(x_list)
+# plt.scatter(x_list, f(x_values), color="red")
+#
+# # Chart 2, derivative
+# plt.subplot(2, 1, 2)
+#
+# plt.title('Slope of the cost function')
+# plt.plot(x_1, df(x_1))
+# plt.xlabel('x')
+# plt.ylabel('df(x)')
+# plt.grid()
+# plt.scatter(x_list, df(x_values), color="red")
 
 #plt.show()
 
@@ -97,40 +97,44 @@ def dg(x):
 
 
 def gradient_descent(derivative_function, initial_guess, learning_rate=0.02, precision=0.001):
-    new_x2 = initial_guess
-
-    x2_list = [new_x2]
-    slope_list2 = [derivative_function(new_x2)]
+    new = initial_guess
+    list_x = [new]
+    list_slope = [derivative_function(new)]
 
     for n in range(30):
-        previous = new_x2
-        slope_gradient = derivative_function(previous)
-        new_x2 = precision - slope_gradient * learning_rate
+        previous = new
+        gradient = derivative_function(previous)
 
-        x2_list.append(new_x2)
-        slope_list2.append(derivative_function(new_x2))
+        new = previous - gradient * learning_rate
 
-        if abs(new_x2 - previous) < precision:
+        list_x.append(new)
+        list_slope.append(derivative_function(new))
+
+        if abs(new - previous) < precision:
+            print(f'Loop run {n} times')
             break
-    return new_x2, x2_list, slope_list2
 
-local_min, x_list, deriv_list = gradient_descent(dg, 2)
+    return new, list_x, list_slope
+
+
+local_min, x_list, deriv_list = gradient_descent(dg, -0.2)
 print(f'local min {local_min}')
+print(f'Number of steps {len(x_list)}')
 
 
-values_x2 = np.array(x_list)
+
 plt.subplot(1, 2, 1)
 plt.plot(x_2, g(x_2))
 plt.title('Example 2')
 plt.xlabel('x_2')
 plt.ylabel('g(x)')
-plt.scatter(x_list, g(values_x2))
+plt.scatter(x_list, g(np.array(x_list)))
 
 plt.subplot(1, 2, 2)
 plt.plot(x_2, dg(x_2))
 plt.xlabel('x_2')
 plt.ylabel('dg(x)')
 plt.grid()
-plt.scatter(x_list, dg(values_x2))
+plt.scatter(x_list, dg(np.array(x_list)))
 
 plt.show()
