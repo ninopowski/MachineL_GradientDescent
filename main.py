@@ -154,7 +154,7 @@ def dh(x):
     return 5*x**4 - 8*x**3
 
 # Calling the function
-local_min, x_list, deriv_list = gradient_descent(derivative_function=dh, initial_guess=-0.2, max_iter=70)
+local_min, x_list, deriv_list = gradient_descent(derivative_function=dh, initial_guess=-0.2, max_iter=50)
 print(f'local min {local_min}')
 print(f'cost at local min {h(local_min)}')
 print(f'Number of steps {len(x_list)}')
@@ -183,4 +183,3 @@ plt.show()
 print(sys.float_info.max)
 
 
-#
