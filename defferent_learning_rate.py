@@ -50,6 +50,13 @@ high_gamma = gradient_descent(derivative_function=dg,
                              precision=0.0001,
                              max_iter=n)
 
+extreme_gamma = gradient_descent(derivative_function=dg,
+                             initial_guess=1.9,
+                             learning_rate=0.25,
+                             precision=0.0001,
+                             max_iter=n)
+
+
 # x axis data
 x_values = list(range(0, n+1))
 
@@ -57,6 +64,7 @@ x_values = list(range(0, n+1))
 low_values = np.array(low_gamma[1])
 mid_values = np.array(mid_gamma[1])
 high_values = np.array(high_gamma[1])
+extreme_values = np.array(extreme_gamma[1])
 
 
 
@@ -78,5 +86,8 @@ plt.scatter(x_values, g(mid_values), s=20)
 plt.plot(x_values, g(high_values), color='yellow')
 plt.scatter(x_values, g(high_values), s=20)
 
+# Plotting the extreme learning rate
+plt.plot(x_values, g(extreme_values), color='red')
+plt.scatter(x_values, g(extreme_values), s=20)
 
 plt.show()
