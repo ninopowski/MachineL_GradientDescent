@@ -42,6 +42,22 @@ print(f'Value of (f(x, y) at x=1.8 and y=1.0 is: {f(a, b).evalf(subs={a: 1.8, b:
 print(f'Value of the slope wrt x at x=1.8 and y=1.0 is: {diff(f(a, b), a).evalf(subs={a: 1.8, b: 1.0})}')
 
 
+# Batch gradient descent with sympy
+# setup
+learning_rate = 0.1
+max_iter = 500
+params = np.array([1.8, 1.0])  # initial guess
 
+for n in range(max_iter):
+    gradient_x = diff(f(a, b), a).evalf(subs={a: params[0], b: params[1]})
+    gradient_y = diff(f(a, b), b).evalf(subs={a: params[0], b: params[1]})
+    gradients = np.array([gradient_x, gradient_y])
+    params = params - learning_rate * gradients
+
+# Results
+print(f'Values in gradient array {gradients}')
+print(f'Minimum occurs at x value of: {params[0]}')
+print(f'Minimum occurs at y value of: {params[1]}')
+print(f'The cost is {f(params[0], params[1])}')
 
 
