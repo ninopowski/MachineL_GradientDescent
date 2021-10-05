@@ -30,13 +30,13 @@ y = np.linspace(start=-2, stop=2, num=200)
 
 x, y = np.meshgrid(x, y)
 # Generating the 3D plot
-fig = plt.figure(figsize=[16, 12])
-ax = fig.gca(projection='3d')
-
-ax.set_xlabel("X", fontsize=20)
-ax.set_ylabel("Y", fontsize=20)
-ax.set_zlabel("f(x, y) - cost", fontsize=20)
-ax.plot_surface(x, y, f(x, y), cmap=cm.coolwarm, alpha=0.6)
+# fig = plt.figure(figsize=[16, 12])
+# ax = fig.gca(projection='3d')
+#
+# ax.set_xlabel("X", fontsize=20)
+# ax.set_ylabel("Y", fontsize=20)
+# ax.set_zlabel("f(x, y) - cost", fontsize=20)
+# ax.plot_surface(x, y, f(x, y), cmap=cm.coolwarm, alpha=0.6)
 #plt.show()
 
 
@@ -52,20 +52,80 @@ print(f'Value of the slope wrt x at x=1.8 and y=1.0 is: {diff(f(a, b), a).evalf(
 
 # Batch gradient descent with sympy
 # setup
+# learning_rate = 0.1
+# max_iter = 500
+# params = np.array([1.8, 1.0])  # initial guess
+
+# for n in range(max_iter):
+#     gradient_x = fpx(params[0], params[1])
+#     gradient_y = fpy(params[0], params[1])
+#     gradients = np.array([gradient_x, gradient_y])
+#     params = params - learning_rate * gradients
+#
+# # Results
+# print(f'Values in gradient array {gradients}')
+# print(f'Minimum occurs at x value of: {params[0]}')
+# print(f'Minimum occurs at y value of: {params[1]}')
+# print(f'The cost is {f(params[0], params[1])}')
+
+
+# Graphing 3d gradient descent and adv. numpy arrays
+
 learning_rate = 0.1
 max_iter = 500
 params = np.array([1.8, 1.0])  # initial guess
+values_array = params.reshape(1, 2)
 
 for n in range(max_iter):
     gradient_x = fpx(params[0], params[1])
     gradient_y = fpy(params[0], params[1])
     gradients = np.array([gradient_x, gradient_y])
     params = params - learning_rate * gradients
+    values_array = np.append(arr=values_array, values=params.reshape(1, 2), axis=0)
 
 # Results
 print(f'Values in gradient array {gradients}')
 print(f'Minimum occurs at x value of: {params[0]}')
 print(f'Minimum occurs at y value of: {params[1]}')
 print(f'The cost is {f(params[0], params[1])}')
+
+fig = plt.figure(figsize=[16, 12])
+ax = fig.gca(projection='3d')
+
+ax.set_xlabel("X", fontsize=20)
+ax.set_ylabel("Y", fontsize=20)
+ax.set_zlabel("f(x, y) - cost", fontsize=20)
+ax.plot_surface(x, y, f(x, y), cmap=cm.coolwarm, alpha=0.6)
+ax.scatter(values_array[:, 0], values_array[:, 1], f(values_array[:, 0], values_array[:, 1]), color='black')
+plt.show()
+
+
+
+# Advance Numpy array practice
+
+kirk = np.array([['captain', 'drums']])
+print(kirk.shape)
+
+hs_band = np.array([['Black space', 'mc'], ['quest love', 'guitar']])
+
+the_roots = np.append(arr=hs_band, values=kirk, axis=0)
+print(the_roots)
+
+the_roots = np.append(arr=the_roots, values=[['malik b', 'mc2']], axis=0)
+# Slicing arrays
+print(f'Printing nicknames {the_roots[:, 0]}')
+print(f'Print band roles: {the_roots[:, 1]}')
+
+
+
+
+
+
+
+
+
+
+
+
 
 
