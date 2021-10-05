@@ -117,8 +117,13 @@ print(f'Printing nicknames {the_roots[:, 0]}')
 print(f'Print band roles: {the_roots[:, 1]}')
 
 
+# Working with data and real cost function
 
+# Mean squared error: a cost function for regression problems
 
+# RSS = sum_{i=1}^n (y**i - h_theta * x**i)**2
+
+# MSE = (sum_{i=1}^n (y**i - h_theta * x**i)**2) / 2
 
 
 
